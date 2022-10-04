@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float
-
-from sqlalchemy.orm import declarative_base
-
-base = declarative_base()
+from entities.recipe_entity import RecipeProductEntity
+from entities import base
+from sqlalchemy.orm import relationship
 
 
 class ProductEntity(base):
@@ -13,3 +12,4 @@ class ProductEntity(base):
     fats = Column(Float)
     carbohydrates = Column(Float)
     calories = Column(Float)
+    recipes = relationship("RecipeProductEntity", backref="product")

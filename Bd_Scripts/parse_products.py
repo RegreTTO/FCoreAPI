@@ -3,15 +3,29 @@ from bs4 import BeautifulSoup
 import requests as req
 from sqlalchemy.orm import Session
 from tqdm import tqdm
+import colorama
 
-from entities.product_model import ProductEntity
+from Bd_Scripts import get_data_from_html_table
+from entities.product_entity import ProductEntity
 from models.product_model import ProductModel
 from services.sessions import generate_session
 
-products = []
-session: Session = next(generate_session())
-for i in tqdm(range(80)):
-    url = f"https://calorizator.ru/product/all?page={i}"
+colorama.init()
+
+
+def is_database_empty(session: Session):
+    products = session.query(ProductEntity).all()
+    return not products
+
+
+def main():
+    session: Session = next(generate_session())
+    if not is_database_empty(session):
+        print(colorama.Fore.RED, "DATABASE IS NOT EMPTY!!!", colorama.Fore.RESET)
+        return
+
+    for i in tqdm(range(80)):
+        url = f"https://calorizator.ru/product/all?page={i}"
 
     soup = BeautifulSoup(req.get(url).text, "html.parser")
 
