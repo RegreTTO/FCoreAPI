@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
+
+from entities.category_entity import CategoryEntity
 from entities.recipe_entity import RecipeProductEntity
 from entities import base
 from sqlalchemy.orm import relationship
@@ -12,4 +14,5 @@ class ProductEntity(base):
     fats = Column(Float)
     carbohydrates = Column(Float)
     calories = Column(Float)
-    recipes = relationship("RecipeProductEntity", backref="product")
+    category = Column(Integer, ForeignKey("categories.id"))
+    recipes = relationship("RecipeProductEntity", backref="products", cascade="all, delete")

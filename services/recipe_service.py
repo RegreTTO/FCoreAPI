@@ -21,3 +21,4 @@ def get_recipes(ids: List[int], session: Session):
 
 def get_recipe(id: int, session: Session) -> RecipeEntity:
     return session.query(RecipeEntity).filter_by(id=id).first()
+

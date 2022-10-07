@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.orm import Session
 
 from entities.product_entity import ProductEntity
@@ -11,7 +13,7 @@ def get_product(product_id: int, session: Session) -> ProductEntity:
     return session.query(ProductEntity).filter_by(id=product_id).first()
 
 
-def get_product_by_name(product_name: str, session: Session) -> ProductEntity:
+def get_products_by_name(product_name: str, session: Session) -> List[ProductEntity]:
     data = session.query(ProductEntity).filter(ProductEntity.name.like(f"{product_name} %")).all()
     i = 0
     while not data:
@@ -19,6 +21,10 @@ def get_product_by_name(product_name: str, session: Session) -> ProductEntity:
             ProductEntity.name.like(f'%{product_name[:len(product_name) - i]}%')).all()
         i += 1
     return data
+
+
+def get_product_by_name(product_name: str, session: Session) -> ProductEntity:
+    return session.query(ProductEntity).filter_by(name=product_name).first()
 
 
 def is_database_empty(session: Session):

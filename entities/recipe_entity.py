@@ -8,7 +8,11 @@ class RecipeEntity(base):
     __tablename__ = 'recipes'
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    products = relationship("RecipeProductEntity", backref='recipe')
+    protein = Column(Float)
+    fats = Column(Float)
+    carbohydrates = Column(Float)
+    calories = Column(Float)
+    products = relationship("RecipeProductEntity", backref='recipes', cascade="all, delete")
 
 
 class RecipeProductEntity(base):
@@ -16,3 +20,4 @@ class RecipeProductEntity(base):
     id = Column(Integer, primary_key=True)
     product_id = Column(Integer, ForeignKey("products.id"))
     recipe_id = Column(Integer, ForeignKey("recipes.id"))
+

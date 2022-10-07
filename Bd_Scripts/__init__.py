@@ -1,1 +1,1 @@
-from Bd_Scripts.parse_products import get_data_from_html_table
+
