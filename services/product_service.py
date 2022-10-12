@@ -32,3 +32,9 @@ def get_product_by_name(product_name: str, session: Session) -> ProductEntity:
 def is_database_empty(session: Session):
     products = session.query(ProductEntity).all()
     return not products
+
+# def is_product_exists(product_name: str, session: Session):
+#     data = get_product_by_name()
+#     if data:
+#         return True
+#     return False

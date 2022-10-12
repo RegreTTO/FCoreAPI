@@ -42,14 +42,16 @@ def main():
             kal = float(cols[5].text.strip() if cols[5].text.strip() != "" else 0)
             product_model = ProductModel(name=name, protein=protein, fats=fat, carbohydrates=carb, calories=kal)
             product = ProductEntity(**product_model.__dict__)
-            category_service.add_category_to_product(category, product, session)
-            session.add(product)
+            data = product_service.get_products_by_name(product.name, session)
+            if not data:
+                category_service.add_category_to_product(category, product, session)
+                session.add(product)
     session.commit()
 
 
 def get_product_category(link: str, session: Session):
     url = f"https://calorizator.ru{link}"
-    resp = req_sess.get(url)
+    resp = requests.get(url)
     bs = BeautifulSoup(resp.text, "html.parser")
     categories = bs.find('div', class_="breadcrumb")
     category = categories.contents[4].text

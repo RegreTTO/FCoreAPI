@@ -14,7 +14,10 @@ def add_category(name: str, session: Session):
 
 
 def is_category_exist(name, session: Session):
-    return session.query(CategoryEntity).filter_by(name=name).first() is not None
+    category = session.query(CategoryEntity).filter(CategoryEntity.id.like(f'%{name}%')).all()
+    if category:
+        return True
+    return False
 
 
 def add_category_to_product(category: str, product: ProductEntity, session: Session):
