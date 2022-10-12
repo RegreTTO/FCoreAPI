@@ -16,7 +16,6 @@ from models.product_model import ProductModel
 colorama.init()
 
 
-
 def main():
     session: Session = next(generate_session())
     if not is_database_empty(session):
@@ -34,7 +33,7 @@ def main():
         for row in rows:
             row: bs4.Tag
             cols = row.find_all("td")
-            name = cols[1].text.strip()
+            name = cols[1].text.strip() + " "
             product_link = cols[1].contents[1].attrs["href"]
             category = get_product_category(product_link, session)
             protein = float(cols[2].text.strip() if cols[2].text.strip() != "" else 0)

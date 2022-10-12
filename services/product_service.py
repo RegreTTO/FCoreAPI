@@ -18,8 +18,10 @@ def get_products_by_name(product_name: str, session: Session) -> List[ProductEnt
     i = 0
     while not data:
         data = session.query(ProductEntity).filter(
-            ProductEntity.name.like(f'%{product_name[:len(product_name) - i]}%')).all()
+            ProductEntity.name.like(f'%{product_name[:len(product_name) - i]} %')).all()
         i += 1
+        if i == len(product_name):
+            return []
     return data
 
 
