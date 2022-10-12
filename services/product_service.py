@@ -14,11 +14,11 @@ def get_product(product_id: int, session: Session) -> ProductEntity:
 
 
 def get_products_by_name(product_name: str, session: Session) -> List[ProductEntity]:
-    data = session.query(ProductEntity).filter(ProductEntity.name.like(f"{product_name} %")).all()
+    data = session.query(ProductEntity).filter(ProductEntity.name.like(f"{product_name} ")).all()
     i = 0
     while not data:
         data = session.query(ProductEntity).filter(
-            ProductEntity.name.like(f'%{product_name[:len(product_name) - i]} %')).all()
+            ProductEntity.name.like(f'%{product_name[:len(product_name) - i]} ')).all()
         i += 1
         if i == len(product_name):
             return []
