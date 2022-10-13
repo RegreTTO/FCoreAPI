@@ -18,4 +18,4 @@ def get_recipes(ids: List[int] = Query(None, alias="ids"),
 @recipe_controller.get("/api/dish/recipe")
 def get_dish_recipe(product_names: List[str] = Query(None, alias="names"),
                     session: Session = Depends(generate_session)):
-    return recipe_service.get_dish_recipe(product_names, session)
+    return recipe_service.get_dish(product_names, session)
