@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 from sqlalchemy.orm import Session
 from tqdm import tqdm
-import colorama
+
 from entities.product_entity import ProductEntity
 from entities.recipe_entity import RecipeEntity, RecipeProductEntity
 from services.product_service import get_products_by_name
@@ -38,6 +38,7 @@ def parse():
 
         for tr in tqdm(trs[:]):
             cols = tr.find_all("td")
+            image_url = cols[0].a['href']
             name = cols[1].text.strip()
             protein = float(cols[2].text.strip() if cols[2].text.strip() != "" else 0)
             fat = float(cols[3].text.strip() if cols[3].text.strip() != "" else 0)
@@ -46,7 +47,8 @@ def parse():
             href = cols[1].a['href']
             products: set[ProductEntity] = set(get_recipe_products(requests.get(calorizator_url + href).text, session))
             products = set(filter(lambda x: x != [], products))
-            recipe = RecipeEntity(name=name, protein=protein, fats=fat, carbohydrates=carb, calories=kal)
+            recipe = RecipeEntity(name=name, protein=protein, fats=fat, carbohydrates=carb, calories=kal,
+                                  logo_link=image_url)
             session.add(recipe)
             session.commit()
             for prod in products:

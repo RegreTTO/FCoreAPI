@@ -1,9 +1,7 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
-
-from entities.category_entity import CategoryEntity
-from entities.recipe_entity import RecipeProductEntity
-from entities import base
+from sqlalchemy import Column, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+
+from entities import base
 
 
 class ProductEntity(base):

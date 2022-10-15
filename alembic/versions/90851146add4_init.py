@@ -9,7 +9,6 @@ from alembic import op
 from sqlalchemy import ForeignKey
 import sqlalchemy as sa
 
-
 # revision identifiers, used by Alembic.
 revision = '90851146add4'
 down_revision = None
@@ -19,38 +18,38 @@ depends_on = None
 
 def upgrade() -> None:
     op.create_table('categories',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('name', sa.String(), nullable=False),
-        sa.PrimaryKeyConstraint("id")
-    )
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('name', sa.String(), nullable=False),
+                    sa.PrimaryKeyConstraint("id")
+                    )
 
     op.create_table('recipes',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('protein', sa.Float()),
-        sa.Column('fats', sa.Float()),
-        sa.Column('carbohydrates', sa.Float()),
-        sa.Column('calories', sa.Float()),
-        sa.Column('name', sa.String(), nullable=True),
-        sa.PrimaryKeyConstraint('id')
-    )
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('protein', sa.Float()),
+                    sa.Column('fats', sa.Float()),
+                    sa.Column('carbohydrates', sa.Float()),
+                    sa.Column('calories', sa.Float()),
+                    sa.Column('name', sa.String(), nullable=True),
+                    sa.PrimaryKeyConstraint('id')
+                    )
 
     op.create_table('products',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('name', sa.String(), nullable=True),
-        sa.Column('protein', sa.Float(), nullable=True),
-        sa.Column('fats', sa.Float(), nullable=True),
-        sa.Column('carbohydrates', sa.Float(), nullable=True),
-        sa.Column('category', sa.Integer, ForeignKey("categories.id")),
-        sa.Column('calories', sa.Float(), nullable=True),
-        sa.PrimaryKeyConstraint('id')
-    )
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('name', sa.String(), nullable=True),
+                    sa.Column('protein', sa.Float(), nullable=True),
+                    sa.Column('fats', sa.Float(), nullable=True),
+                    sa.Column('carbohydrates', sa.Float(), nullable=True),
+                    sa.Column('category', sa.Integer, ForeignKey("categories.id")),
+                    sa.Column('calories', sa.Float(), nullable=True),
+                    sa.PrimaryKeyConstraint('id')
+                    )
 
     op.create_table('recipes_products',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('product_id', sa.Integer(), ForeignKey('products.id')),
-        sa.Column('recipe_id', sa.Integer(), ForeignKey('recipes.id')),
-        sa.PrimaryKeyConstraint('id')
-    )
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('product_id', sa.Integer(), ForeignKey('products.id')),
+                    sa.Column('recipe_id', sa.Integer(), ForeignKey('recipes.id')),
+                    sa.PrimaryKeyConstraint('id')
+                    )
 
 
 def downgrade() -> None:

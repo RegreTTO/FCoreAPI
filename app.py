@@ -7,7 +7,6 @@ from controllers.recipe_controller import recipe_controller
 
 app = FastAPI()
 
-
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
@@ -28,7 +27,6 @@ app.add_middleware(
 
 app.include_router(product_controller)
 app.include_router(recipe_controller)
-
 
 if __name__ == '__main__':
     uvicorn.run(app, host='127.0.0.1', port=7000)

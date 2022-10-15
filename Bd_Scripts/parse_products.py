@@ -1,12 +1,11 @@
-import time
 import bs4
 import requests
-
-from bs4 import BeautifulSoup, SoupStrainer
+from bs4 import BeautifulSoup
 import requests as req
 from sqlalchemy.orm import Session
 from tqdm import tqdm
 import colorama
+
 from entities.product_entity import ProductEntity
 from services import category_service, product_service
 from services.product_service import is_database_empty
