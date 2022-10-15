@@ -12,6 +12,7 @@ class RecipeEntity(base):
     fats = Column(Float)
     carbohydrates = Column(Float)
     calories = Column(Float)
+    logo_link = Column(String)
     products = relationship("RecipeProductEntity", backref='recipes', cascade="all, delete")
 
 

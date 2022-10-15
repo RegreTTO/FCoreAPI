@@ -18,7 +18,8 @@ class RecipeGetModel(BaseModel):
             protein=recipe.protein,
             fats=recipe.fats,
             carbohydrates=recipe.carbohydrates,
-            calories=recipe.calories
+            calories=recipe.calories,
+            logo_link=recipe.logo_link
         )
         return model
 
