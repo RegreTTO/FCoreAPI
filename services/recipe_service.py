@@ -67,7 +67,7 @@ def get_list_of_products_and_recipes_by_product_names(product_names: List[str], 
     products = []
     recipes = []
     for product_name in product_names:
-        product = product_service.get_product_by_name(product_name + " ", session)
+        product = product_service.get_product_by_name(product_name.lower() + " ", session)
         products.append(product)
         recipes += [recipe.recipes for recipe in product.recipes]
     return ProductRecipeModel(products=products, recipes=recipes)
