@@ -1,6 +1,8 @@
+from urllib.parse import unquote
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from urllib.parse import unquote
+
 from services.sessions import generate_session
 from services import product_service
 
@@ -21,4 +23,3 @@ def get_product(product_id: int, session: Session = Depends(generate_session)):
 def get_product_by_name(product_name: str, session: Session = Depends(generate_session)):
     n = unquote(product_name)
     return product_service.get_products_by_name(n, session)
-

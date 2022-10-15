@@ -1,7 +1,7 @@
 from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Float, ForeignKey, Integer, String
 
 from entities import base
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
 
 
 class RecipeEntity(base):
@@ -21,4 +21,3 @@ class RecipeProductEntity(base):
     id = Column(Integer, primary_key=True)
     product_id = Column(Integer, ForeignKey("products.id"))
     recipe_id = Column(Integer, ForeignKey("recipes.id"))
-

@@ -2,7 +2,6 @@ from typing import List
 
 from sqlalchemy.orm import Session
 
-from entities.product_entity import ProductEntity
 from entities.recipe_entity import RecipeEntity
 from models.ProductRecipeModel import ProductRecipeModel
 from models.recipe_get_model import RecipeGetModel
@@ -75,6 +74,7 @@ def get_list_of_products_and_recipes_by_product_names(product_names: List[str], 
 
 
 def get_products_frequency_in_recipe(product_recipe_model: ProductRecipeModel):
+    # КОСТЫЛЬ MUST BE FIXED
     product_frequency = {}
     for recipe_product in product_recipe_model.recipes:
         for product in product_recipe_model.products:
