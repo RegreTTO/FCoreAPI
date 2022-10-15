@@ -39,7 +39,7 @@ def parse():
         for tr in tqdm(trs[:]):
             cols = tr.find_all("td")
             image_url = cols[0].a['href']
-            name = cols[1].text.strip()
+            name = cols[1].text.strip().lower()
             protein = float(cols[2].text.strip() if cols[2].text.strip() != "" else 0)
             fat = float(cols[3].text.strip() if cols[3].text.strip() != "" else 0)
             carb = float(cols[4].text.strip() if cols[4].text.strip() != "" else 0)

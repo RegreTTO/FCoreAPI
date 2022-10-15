@@ -32,7 +32,7 @@ def main():
         for row in rows:
             row: bs4.Tag
             cols = row.find_all("td")
-            name = cols[1].text.strip() + " "
+            name = (cols[1].text.strip() + " ").lower()
             product_link = cols[1].contents[1].attrs["href"]
             category = get_product_category(product_link, session)
             protein = float(cols[2].text.strip() if cols[2].text.strip() != "" else 0)

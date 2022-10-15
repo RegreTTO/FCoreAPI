@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from entities.product_entity import ProductEntity
 
 
-def get_products(session: Session):
-    return session.query(ProductEntity).all()
+def get_products(session: Session, limit=-1):
+    return session.query(ProductEntity).limit(limit).all()
 
 
 def get_product(product_id: int, session: Session) -> ProductEntity:
@@ -14,6 +14,7 @@ def get_product(product_id: int, session: Session) -> ProductEntity:
 
 
 def get_products_by_name(product_name: str, session: Session) -> List[ProductEntity]:
+    product_name = product_name.lower()
     data = session.query(ProductEntity).filter(ProductEntity.name.like(f"{product_name} ")).all()
     i = 0
     while not data:
