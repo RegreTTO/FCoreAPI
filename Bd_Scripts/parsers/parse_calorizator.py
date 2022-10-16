@@ -13,7 +13,7 @@ def get_recipe_products(html, session) -> list:
     bs = BeautifulSoup(html, "html.parser")
     ing_block = bs.find('div', class_="field field-type-text recipes-ingredients")
     prods_li = ing_block.find_all('li', class_='recipes-ingr-item')
-    products_names = [' '.join(prod.text.split()[:-3]) for prod in prods_li]
+    products_names = [' '.join(prod.text.split()[:-2]) for prod in prods_li]
     products_models = []
     for name in products_names:
         models = get_products_by_name(name, session)
@@ -29,14 +29,14 @@ calorizator_url = 'https://calorizator.ru'
 def parse():
     session: Session = next(generate_session())
 
-    for i in tqdm(range(88)[:]):
+    for i in tqdm(range(88)):
         url = f"{calorizator_url}/recipes/all?page={i}"
         soup = BeautifulSoup(requests.get(url).text, 'html.parser')
         table = soup.find('tbody')
 
         trs = table.find_all('tr')
 
-        for tr in trs[:]:
+        for tr in trs:
             cols = tr.find_all("td")
             image_url = cols[0].a['href']
             name = cols[1].text.strip().lower()
