@@ -29,7 +29,7 @@ calorizator_url = 'https://calorizator.ru'
 def parse():
     session: Session = next(generate_session())
 
-    for i in range(88)[:1]:
+    for i in range(88)[:]:
         url = f"{calorizator_url}/recipes/all?page={i}"
         soup = BeautifulSoup(requests.get(url).text, 'html.parser')
         table = soup.find('tbody')
